@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-tracking-map",
+  "version": "1.0.0",
+  "description": "Location tracking web application utilizing Node.js Express backend paired with MYSQL Database and React front end",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "react",
+    "mysql",
+    "rest",
+    "api"
+  ],
+  "author": "Chris Allen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "moment": "^2.26.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.10"
+  }
+}
