@@ -1,3 +1,37 @@
+# Gitignore properties for main server
 config/db.config.js
 node_modules/
 package-lock.json
+
+# testing
+/coverage
+
+# production
+/build
+
+
+
+# Gitignore properties from client
+client/node_modules
+client/.pnp
+client/.pnp.js
+client/package-lock.json
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# misc
+client/.DS_Store
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+client/auth.js

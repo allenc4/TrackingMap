@@ -21,35 +21,25 @@ exports.create = (req, res) => {
     // Save Device in the database
     Device.create(device)
     .then(data => {
-        res.send(data);
+        common.sendJson(res, 200, data);
     })
     .catch(err => {
-        res.status(500).send({
-            message:
-            err.message || "Some error occurred while creating the Device"
-        });
+        common.sendJson(res, 500, null, err.message || "Some error occurred while creating the Device");
     });
 };
 
 // Retrieve all Devices from the database.
 exports.findAll = (req, res) => {
     // Validate request has name parameter
-    if (common.validate(req.params, ["name"], res).length > 0) {
-        // If any missing attributes, return
-        return;
-    }
     const name = req.params.name;
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
     Device.findAll({ where: condition})
         .then(data => {
-            res.send(data);
+            common.sendJson(res, 200, data);
         })
         .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Error occurred while querying for Devices"
-            });
+            common.sendJson(res, 500, null, err.message || "Error occurred while querying for Devices");
         });
 };
 
@@ -64,12 +54,10 @@ exports.findOne = (req, res) => {
 
     Device.findByPk(deviceId)
       .then(data => {
-          res.send(data);
+          common.sendJson(res, 200, data);
       })
       .catch(err => {
-          res.status(500).send({
-              message: "Error while finding device by id=" + deviceId
-          });
+          common.sendJson(res, 500, null, "Error while finding device by id=" + deviceId);
       });
 
 };
@@ -88,19 +76,13 @@ exports.update = (req, res) => {
     })
     .then(num => {
         if (num == 1) {
-            res.send({
-                message: "Updated successfully"
-            });
+            common.sendJson(res, 200, null, "Updated successfully");
         } else {
-            res.send({
-                message: `Failed to update device with id=${id}`
-            });
+            common.sendJson(res, 500, null, `Failed to update device with id=${id}`);
         }
     })
     .catch(err => {
-        res.status(500).send({
-            message: "Error updating device with id " + deviceId
-        });
+        common.sendJson(res, 500, null, `Failed to update device with id=${id}`);
     });
 };
 
@@ -118,19 +100,13 @@ exports.delete = (req, res) => {
     })
     .then(num => {
         if (num == 1) {
-            res.send({
-                message: "Device deleted successfully"
-            });
+            common.sendJson(res, 200, null, "Device deleted successfully");
         } else {
-            res.send({
-                message: `Failed to upddeleteate device with id=${id}`
-            });
+            common.sendJson(res, 500, null, `Failed to upddeleteate device with id=${id}`);
         }
     })
     .catch(err => {
-        res.status(500).send({
-            message: "Error deleting device with id " + deviceId
-        });
+        common.sendJson(res, 500, null, "Error deleting device with id " + deviceId);
     });
 };
 
@@ -141,13 +117,10 @@ exports.deleteAll = (req, res) => {
         truncate: false
     })
     .then(nums => {
-        res.send({ message: `${nums} devices were deleted` })
+        common.sendJson(res, 200, null, `${nums} devices were deleted`);
     })
     .catch( err => {
-        res.status(500).send({
-            message: 
-                err.message || "Exception occurred deleting devices"
-        });
+        common.sendJson(res, 500, null, err.message || "Exception occurred deleting devices");
     });
 };
 
@@ -157,12 +130,9 @@ exports.findAllInactive = (req, res) => {
 
     Device.findAll({ where: condition })
     .then(data => {
-        res.send(data);
+        common.sendJson(res, 200, data);
     })
     .catch( err => {
-        res.status(500).send({
-            message:
-            err.message || "Exception occurred querying inactive devices"
-        });
+        common.sendJson(res, 500, null, "Exception occurred querying inactive devices");
     });
 };

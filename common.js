@@ -28,4 +28,19 @@ Common.prototype.validate = function(props, neededOptions, response) {
     return missingProps;
 }
 
+Common.prototype.sendJson = function(response, status, data, msg) {
+    let obj = {};
+    if (msg) {
+        obj.message = msg;
+    } else if (status >= 200 && status < 300) {
+        obj.message = "Success";
+    }
+
+    if (data) {
+        obj.data = data;
+    }
+
+    response.status(status).send(obj);
+}
+
 module.exports = new Common();

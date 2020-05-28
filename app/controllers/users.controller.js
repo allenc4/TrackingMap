@@ -18,13 +18,10 @@ exports.create = (req, res) => {
     // Save User in the database
     User.create(user)
     .then(data => {
-        res.send(data);
+        common.sendJson(res, 200, data);
     })
     .catch(err => {
-        res.status(500).send({
-            message:
-            err.message || "Error occurred while creating the User"
-        });
+        common.sendJson(res, 500, null, err.message || "Error occurred while creating the User");
     });
 };
 
@@ -43,20 +40,14 @@ exports.delete = (req, res) => {
     })
     .then(num => {
         if (num == 1) {
-            res.send({
-                message: "User was successfully deleted"
-            });
+            common.sendJson(res, 200, null, "User was successfully deleted");
         } else {
-            res.status(500).send({
-                message: `User of id ${userId} not found`
-            });
+            common.sendJson(res, 500, null, `User of id ${userId} not found`);
         }
        
     })
     .catch(err => {
-        res.status(500).send({
-            message: "Error deleting user"
-        });
+        common.sendJson(res, 500, null, "Error deleting user");
     });
 };
 
@@ -74,18 +65,12 @@ exports.update = (req, res) => {
     })
     .then(num => {
         if (num == 1) {
-            res.send({
-                message: "Updated successfully"
-            });
+            common.sendJson(res, 200, null, "Updated successfully");
         } else {
-            res.send({
-                message: `Failed to update user with id=${id}`
-            });
+            common.sendJson(res, 500, null, `Failed to update user with id=${id}`);
         }
     })
     .catch(err => {
-        res.status(500).send({
-            message: "Error updating user with id " + deviceId
-        });
+        common.sendJson(res, 500, null, "Error updating user with id " + deviceId);
     });
 };

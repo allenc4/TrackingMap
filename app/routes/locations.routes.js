@@ -6,11 +6,14 @@ module.exports = app => {
     // Create a new location
     router.put("/", locations.create);
 
+    // Retrieve latest location by device id
+    router.get("/:id", locations.findLatest);
+    
     // Retrieve all locations by device id
     router.get("/all/:id", locations.findByDeviceId);
 
-    // Retrieve latest location by device id
-    router.get("/:id", locations.findLatest);
+    // Retrieve last day of locations by device id
+    router.get("/day/:id", locations.findPastDay);
 
     // Delete all locations of device
     router.delete("/:id", locations.deleteAllByDeviceId);

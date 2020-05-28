@@ -18,9 +18,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Synchronize database models
 const db = require("./app/models");
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Dropping tables and reinitializing database");
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//     console.log("Dropping tables and reinitializing database");
+// });
+db.sequelize.sync();
+
 
 // Include the routes
 require("./app/routes/users.routes")(app);
