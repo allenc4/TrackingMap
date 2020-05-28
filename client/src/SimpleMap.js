@@ -14,7 +14,10 @@ class SimpleMap extends React.Component {
             lat: 42.420441,
             lng: -71.058403
         },
-        zoom: 11
+        zoom: 11,
+        gMap: null,
+        gMaps: null,
+        bounds: null
     };
 
     constructor(props) {
@@ -36,7 +39,8 @@ class SimpleMap extends React.Component {
     }
 
     // Return map bounds based on list of locations
-    static getMapBounds = (map, maps, locations) => {
+    static getMapBounds = (locations) => {
+        const maps = SimpleMap.defaultProps.gMaps;
         const bounds = new maps.LatLngBounds();
 
         locations.forEach((location) => {
@@ -50,7 +54,11 @@ class SimpleMap extends React.Component {
     };
 
     // Re-center map when resizing the window
-    static bindResizeListener = (map, maps, bounds) => {
+    static bindResizeListener = () => {
+        const map = SimpleMap.defaultProps.gMap;
+        const maps = SimpleMap.defaultProps.gMaps;
+        const bounds = SimpleMap.defaultProps.bounds;
+
         maps.event.addDomListenerOnce(map, 'idle', () => {
             maps.event.addDomListener(window, 'resize', () => {
                 map.fitBounds(bounds);
@@ -60,13 +68,22 @@ class SimpleMap extends React.Component {
 
     // Fit map to its bounds after the google maps api is loaded
     static apiIsLoaded = (map, maps, locations) => {
-        // Get bounds by our locations
-        const bounds = this.getMapBounds(map, maps, locations);
-        // Fit map to bounds
-        map.fitBounds(bounds);
+        // Save google map and maps params
+        SimpleMap.defaultProps.gMap = map;
+        SimpleMap.defaultProps.gMaps = maps;
+        
         // Bind the resize listener
-        this.bindResizeListener(map, maps, bounds);
+        this.bindResizeListener();
     };
+
+    static fitBounds = function(locations) {
+        // Get bounds by our locations
+        const bounds = this.getMapBounds(locations);
+        // Fit map to bounds
+        SimpleMap.defaultProps.gMap.fitBounds(bounds);
+
+        SimpleMap.defaultProps.bounds = bounds;
+    }
 
     // On watched geolocation position, function gets triggered on position change
     geolocationChanged(position) {
@@ -94,8 +111,12 @@ class SimpleMap extends React.Component {
             locations.push(location);
         }
 
-        this.setState({ locations: locations });
+        // Refit map bounds
+        if (SimpleMap.defaultProps.gMap) {
+            SimpleMap.fitBounds(locations);
+        }
 
+        this.setState({ locations: locations });
     }
 
     geolocationError(err) {

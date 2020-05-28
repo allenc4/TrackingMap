@@ -17,6 +17,15 @@ const Wrapper = styled.div`
   background-image: ${props => props.backgroundImage};
 `;
 
+const Tooltip = function(props) {
+  
+  return (
+    <div>
+      <p className="title">Test Title</p>
+    </div>
+  )
+}
+
 
 class Marker extends React.Component {
   constructor(props) {
@@ -35,7 +44,9 @@ class Marker extends React.Component {
           alt={props.text}
           {...props}
           {...props.onClick ? { onClick: props.onClick} : {}}
-      />
+      >
+        <Tooltip />
+      </Wrapper>
     )
   }
 
