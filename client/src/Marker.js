@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
+import LOCATION_TYPE from './SimpleMap';
+
 
 
 const Wrapper = styled.div`
@@ -18,10 +21,19 @@ const Wrapper = styled.div`
 `;
 
 const Tooltip = function(props) {
-  
+  const type = props.type;
+  const name = props.name;
+  if (type === LOCATION_TYPE.CUR_LOCATION) {
+    name = "My Location";
+  }
+
   return (
-    <div>
-      <p className="title">Test Title</p>
+    <div className="tooltip" > 
+      <p className="title">{name}</p>
+      <ul>
+        <li>{props.time}</li>
+        <li>{ `{${props.lat}, ${props.lon}`}</li>
+      </ul>
     </div>
   )
 }
@@ -40,13 +52,18 @@ class Marker extends React.Component {
     const props = this.state.props;
     
     return (
-      <Wrapper
-          alt={props.text}
-          {...props}
-          {...props.onClick ? { onClick: props.onClick} : {}}
-      >
-        <Tooltip />
-      </Wrapper>
+      <div>
+        <Wrapper className="marker"
+            alt={props.text}
+            {...props}
+            {...props.onClick ? { onClick: props.onClick} : {}}
+            data-for={"markerTooltip" + props.locationId}
+            data-tip="Unknown"
+        />
+        <ReactTooltip id={"markerTooltip" + props.locationId} aria-haspopup='true' role='example' place="top" type="light" effect="solid">
+          <Tooltip type={props.type} name={props.name} lat={props.lat} lon={props.lng} time={props.time} />
+        </ReactTooltip>
+      </div>
     )
   }
 

@@ -106,7 +106,8 @@ class SimpleMap extends React.Component {
             const location = {
                 type: LOCATION_TYPE.CUR_LOCATION,
                 lat: position.coords.latitude,
-                lon: position.coords.longitude
+                lon: position.coords.longitude,
+                locationId: -1
             };
             locations.push(location);
         }
@@ -204,6 +205,9 @@ class SimpleMap extends React.Component {
                                 height={location.height}
                                 backgroundImage={location.backgroundImage}
                                 active={location.active}
+                                locationId={location.locationId}
+                                type={location.type}
+                                name={location.locationId}  // TODO change to location name
                             />
                         ))
                     }
@@ -215,4 +219,5 @@ class SimpleMap extends React.Component {
     }
 }
 
+export {LOCATION_TYPE};
 export default SimpleMap;

@@ -121,57 +121,18 @@ body {
     font-size: 16px;
 }
 
-  
-/* Styling for displaying a tooltip on hover */
-[data-tooltip]:hover {
-    position: relative;
+.tooltip {
+    font-size: 0.75em;
     color: $tooltip-text-color;
+    background-color: $background-tooltip;
 
-    /* Styles for the tooltip and fill the content of the tooltip based on the data-tooltip attribute */
-    &::before {
-        all: initial;
-        font-family: Arial, Helvetica, sans-serif;
-        display: inline-block;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: $background-tooltip;
-        color: $tooltip-text-color;
-        position: absolute;
-        bottom: 100%;
-        width: 100px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    /* Add carret to the tooltip bottom */
-    &::after {
-        all: initial;
-        display: inline-block;
-        width: 0; 
-        height: 0; 
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;		  
-        border-top: 10px solid #1a1a1a;
-        position: absolute;
-        bottom: 100%;
-        content: '';
-        left: 50%;
-        transform: translate(-50%, 0);
-        margin-bottom: 5px;
-    }
-
-    /* Header for the location (title) */
     .title {
+        font-weight: 400;
+        color: $tooltip-text-heading;
         width: 100%;
         border-bottom: 2px solid $border-tooltip-color;
-        color: $tooltip-text-heading;
+        margin-bottom: 10px;
     }
-}
-
-.mycontainer {
-    margin-left: 4em;;
-    margin-right: 4em;
 }
 
 .shadow {
