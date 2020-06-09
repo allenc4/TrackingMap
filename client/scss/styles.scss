@@ -18,15 +18,16 @@
 */
 
 // Define background colors
-$background-tooltip: #f1f1f1;
+$background-tooltip: #fff;
 
 // Define border colors
 $border: #dcd9d9;
 $border-tooltip-color: #000000;
 
 // Define text colors
-$tooltip-text-heading: #000000;
-$tooltip-text-color: #7c7c7c;
+$tooltip-text-color: #555;
+$tooltip-heading-color: #333;
+$link-color: #427fed;
 
 /*
     ---------------------
@@ -111,6 +112,10 @@ $tooltip-text-color: #7c7c7c;
     ----------------------------
 */
 
+html, body {
+    height: 100%;
+}
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -121,18 +126,37 @@ body {
     font-size: 16px;
 }
 
+a {
+    color: $link-color;
+    text-decoration: none;
+}
+
 .tooltip {
-    font-size: 0.75em;
+    font-size: 1.25em !important;
+    padding: 10px 15px !important;
+    pointer-events: auto !important;
     color: $tooltip-text-color;
     background-color: $background-tooltip;
+    &:hover {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
 
     .title {
-        font-weight: 400;
-        color: $tooltip-text-heading;
+        font-weight: 500;
         width: 100%;
-        border-bottom: 2px solid $border-tooltip-color;
-        margin-bottom: 10px;
+        color: $tooltip-heading-color;
     }
+
+    .body {
+        margin-top: 5px;
+    }
+
+}
+
+.shadow-curlocation {
+    border-radius: 50%;
+    box-shadow: 0 0 0 6px rgba(22, 150, 255, 0.35);
 }
 
 .shadow {

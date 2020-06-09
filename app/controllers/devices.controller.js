@@ -62,6 +62,28 @@ exports.findOne = (req, res) => {
 
 };
 
+// Retrieve all Devices of a user
+exports.findByUser = (req, res) => {
+    // Validate request has name parameter
+    const userId = req.params.userId;
+    if (common.validate(req.params, ["userId"], res).length > 0) {
+        // If any missing attributes, return
+        return;
+    }
+
+    Device.findAll({ 
+            where: {
+                ownerId: userId
+            }
+        })
+        .then(data => {
+            common.sendJson(res, 200, data);
+        })
+        .catch(err => {
+            common.sendJson(res, 500, null, err.message || "Error occurred while querying for Devices");
+        });
+};
+
 // Update a Device by the id in the request
 exports.update = (req, res) => {
     // Validate request has name parameter

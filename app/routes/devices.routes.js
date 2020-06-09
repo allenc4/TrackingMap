@@ -12,6 +12,9 @@ module.exports = app => {
     // Retrieve a device by id
     router.get("/:id", devices.findOne);
 
+    // Get all devices owned by the user
+    router.get("/ownedby/:userId", devices.findByUser);
+
     // Get all inactive devices
     router.get("/inactive", devices.findAllInactive);
 

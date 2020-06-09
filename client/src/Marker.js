@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
-import LOCATION_TYPE from './SimpleMap';
+import {LOCATION_TYPE} from './SimpleMap';
 
 
 
@@ -9,31 +9,36 @@ const Wrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: ${props => (props.width? props.width : '25px')};
-  height: ${props => (props.width? props.width : '25px')};
+  width: ${loc => (loc.width? loc.width : '25px')};
+  height: ${loc => (loc.width? loc.width : '25px')};
   user-select: none;
   transform: translate(-50%, -50%);
-  cursor: ${props => (props.onClick ? 'pointer' : 'default')};
+  cursor: ${loc => (loc.onClick ? 'pointer' : 'default')};
   &:hover {
     z-index: 1;
   }
-  background-image: ${props => props.backgroundImage};
+  background-image: ${loc => loc.backgroundImage};
 `;
 
 const Tooltip = function(props) {
+  let name = props.name;
   const type = props.type;
-  const name = props.name;
+  let timeElement = null;
   if (type === LOCATION_TYPE.CUR_LOCATION) {
     name = "My Location";
+  } else {
+    let dateStr = new Date(props.time).toLocaleString();
+    timeElement = React.createElement("div", null, `${dateStr}`);
   }
 
+
   return (
-    <div className="tooltip" > 
-      <p className="title">{name}</p>
-      <ul>
-        <li>{props.time}</li>
-        <li>{ `{${props.lat}, ${props.lon}`}</li>
-      </ul>
+    <div > 
+      <div className="title">{name}</div>
+      <div className="body">
+        {timeElement}
+        <a href={`https://maps.google.com/?q=${props.lat},${props.lon}&z=11`} target="_blank" rel="noopener noreferrer">Open in Maps</a>
+      </div>
     </div>
   )
 }
@@ -42,26 +47,43 @@ const Tooltip = function(props) {
 class Marker extends React.Component {
   constructor(props) {
     super(props);
+
+    let location = props.location;
+
+    if (location.type === LOCATION_TYPE.DEVICE) {
+      location.backgroundImage = location.active ? 
+              "url(icons/motorcycle-active-50.png)" : "url(icons/motorcycle-50.png)";
+      location.height = "50px";
+      location.width = "50px";
+    } else if (location.type === LOCATION_TYPE.CUR_LOCATION) {
+      location.backgroundImage="url(icons/current-location.png)"
+      location.height = "14px";
+      location.width = "14px";
+    }
+  
     this.state = {
-      props: props
+      location: location,
+      device: props.device,
+      id: props.id
     }
   }
 
   render() {
-    const text = this.state.text;
-    const props = this.state.props;
+    const loc = this.state.location;
+    const name = this.state.device ? this.state.device.name : '';
+    const id = this.state.id;
     
     return (
       <div>
-        <Wrapper className="marker"
-            alt={props.text}
-            {...props}
-            {...props.onClick ? { onClick: props.onClick} : {}}
-            data-for={"markerTooltip" + props.locationId}
+        <Wrapper className= {"marker " + (loc.type == LOCATION_TYPE.CUR_LOCATION ? "shadow-curlocation": "")}
+            {...loc}
+            {...loc.onClick ? { onClick: loc.onClick} : {}}
+            data-for={id}
             data-tip="Unknown"
         />
-        <ReactTooltip id={"markerTooltip" + props.locationId} aria-haspopup='true' role='example' place="top" type="light" effect="solid">
-          <Tooltip type={props.type} name={props.name} lat={props.lat} lon={props.lng} time={props.time} />
+        <ReactTooltip id={id} aria-haspopup='true' role='example' place="top" type="light" 
+                      effect="solid" className="tooltip" delayHide={1000}>
+          <Tooltip type={loc.type} name={name} lat={loc.lat} lon={loc.lon} time={loc.createdAt} />
         </ReactTooltip>
       </div>
     )

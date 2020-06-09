@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/styles.css';
-import SimpleMap from './SimpleMap';
+import SideDrawer from './SideDrawer';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(
-  <div>
-    <SimpleMap />
-  </div>,
-  document.getElementById('root')
-);
+import './css/styles.css';
+
+
+ ReactDOM.render(<SideDrawer/>, document.getElementById('root'));
 
 registerServiceWorker();
