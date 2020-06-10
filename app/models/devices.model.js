@@ -4,7 +4,7 @@ class Device extends Model {
     static init(sequelize) {
         return super.init({
             deviceId: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(80),
                 primaryKey: true,
                 allowNull: false
             },

@@ -80,9 +80,10 @@ class Marker extends React.Component {
             {...loc.onClick ? { onClick: loc.onClick} : {}}
             data-for={id}
             data-tip="Unknown"
+            data-event="click focus"
         />
         <ReactTooltip id={id} aria-haspopup='true' role='example' place="top" type="light" 
-                      effect="solid" className="tooltip" delayHide={1000}>
+                      effect="solid" className="tooltip" globalEventOff="click">
           <Tooltip type={loc.type} name={name} lat={loc.lat} lon={loc.lon} time={loc.createdAt} />
         </ReactTooltip>
       </div>

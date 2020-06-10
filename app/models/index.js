@@ -37,18 +37,4 @@ Object.values(db.Models)
   .filter(model => typeof model.associate === 'function')
   .forEach(model => model.associate(db.Models));
 
-// Define foreign key on devices for user
-// db.users.hasMany(db.devices, { as: "devices" });
-// db.devices.belongsTo(db.users, {
-//   foreignKey: "ownerId",  // devices.ownerId
-//   as: "userId"  // users.userId
-// });
-
-// Define the relationship between Devices and Locations
-// db.devices.hasMany(db.locations, { as: "locations" });
-// db.locations.belongsTo(db.devices, {
-//   foreignKey: "deviceUid",  // locations.deviceUid
-//   as: "deviceId",  // devices.deviceId
-// });
-
 module.exports = db;
