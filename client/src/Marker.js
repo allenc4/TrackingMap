@@ -4,7 +4,6 @@ import ReactTooltip from 'react-tooltip';
 import {LOCATION_TYPE} from './SimpleMap';
 
 
-
 const Wrapper = styled.div`
   position: absolute;
   top: 50%;
