@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   &:hover {
     z-index: 1;
   }
-  background-image: ${loc => loc.backgroundImage};
+  background-image: ${loc => 'url(' + process.env.PUBLIC_URL + '/' + loc.imageLocation + ')'};
 `;
 
 const Tooltip = function(props) {
@@ -50,12 +50,12 @@ class Marker extends React.Component {
     let location = props.location;
 
     if (location.type === LOCATION_TYPE.DEVICE) {
-      location.backgroundImage = location.active ? 
-              "url(icons/motorcycle-active-50.png)" : "url(icons/motorcycle-50.png)";
+      location.imageLocation = location.active ? 
+              "icons/motorcycle-active-50.png" : "icons/motorcycle-50.png";
       location.height = "50px";
       location.width = "50px";
     } else if (location.type === LOCATION_TYPE.CUR_LOCATION) {
-      location.backgroundImage="url(icons/current-location.png)"
+      location.imageLocation="icons/current-location.png"
       location.height = "14px";
       location.width = "14px";
     }
