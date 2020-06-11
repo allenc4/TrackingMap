@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import {LOCATION_TYPE} from './SimpleMap';
 
-
 const Wrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -16,7 +15,7 @@ const Wrapper = styled.div`
   &:hover {
     z-index: 1;
   }
-  background-image: ${loc => 'url(' + process.env.PUBLIC_URL + '/' + loc.imageLocation + ')'};
+  background-image: ${loc =>loc.backgroundImage};
 `;
 
 const Tooltip = function(props) {
@@ -50,12 +49,12 @@ class Marker extends React.Component {
     let location = props.location;
 
     if (location.type === LOCATION_TYPE.DEVICE) {
-      location.imageLocation = location.active ? 
-              "icons/motorcycle-active-50.png" : "icons/motorcycle-50.png";
+      location.backgroundImage = location.active ? 
+              'url(/icons/motorcycle-active-50.png)' : 'url(/icons/motorcycle-50.png)';
       location.height = "50px";
       location.width = "50px";
     } else if (location.type === LOCATION_TYPE.CUR_LOCATION) {
-      location.imageLocation="icons/current-location.png"
+      location.backgroundImage= 'url(/icons/current-location.png)';
       location.height = "14px";
       location.width = "14px";
     }
