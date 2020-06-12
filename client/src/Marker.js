@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import {LOCATION_TYPE} from './SimpleMap';
 
+import CurrentLocation from  './assets/icons/currentlocation.png';
+import Motorcycle50 from './assets/icons/motorcycle50.png';
+import MotorcycleActive50 from './assets/icons/motorcycleactive50.png';
+
 const Wrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -12,10 +16,10 @@ const Wrapper = styled.div`
   user-select: none;
   transform: translate(-50%, -50%);
   cursor: ${loc => (loc.onClick ? 'pointer' : 'default')};
+  background-image: ${loc =>loc.backgroundImage};
   &:hover {
     z-index: 1;
   }
-  background-image: ${loc =>loc.backgroundImage};
 `;
 
 const Tooltip = function(props) {
@@ -50,15 +54,15 @@ class Marker extends React.Component {
 
     if (location.type === LOCATION_TYPE.DEVICE) {
       location.backgroundImage = location.active ? 
-              'url(/icons/motorcycle-active-50.png)' : 'url(/icons/motorcycle-50.png)';
+              `url(${MotorcycleActive50})` : `url(${Motorcycle50})`;
       location.height = "50px";
       location.width = "50px";
     } else if (location.type === LOCATION_TYPE.CUR_LOCATION) {
-      location.backgroundImage= 'url(/icons/current-location.png)';
+      location.backgroundImage = `url(${CurrentLocation})`;
       location.height = "14px";
       location.width = "14px";
     }
-  
+    
     this.state = {
       location: location,
       device: props.device,

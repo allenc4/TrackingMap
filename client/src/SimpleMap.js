@@ -128,6 +128,8 @@ class SimpleMap extends React.Component {
         // Set an event handler to watch current user position
         navigator.geolocation.watchPosition(reactState.geolocationChanged, reactState.geolocationError);
 
+        // Get current position immediately
+        navigator.geolocation.getCurrentPosition(reactState.geolocationChanged, reactState.geolocationError);
     }
 
     /**
