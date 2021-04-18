@@ -15,13 +15,22 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import MotorcycleIcon from '@material-ui/icons/Motorcycle';
+import HistoryIcon from '@material-ui/icons/History';
+import ExploreIcon from '@material-ui/icons/Explore';
 import { withStyles} from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 import SimpleMap from './SimpleMap';
 import SimpleMapHelper from './SimpleMapHelper';
 
-const drawerWidth = 240;
+const drawerWidth = 350;
 
 const useStyles = theme => ({
   root: {
@@ -159,10 +168,10 @@ class PersistentSideDrawer extends React.Component {
         const {classes} = this.props;
 
         // Build the list items for each device
-        let listItems = [];
+        let deviceItems = [];
         this.state.userDevices.forEach(device => {
             const labelId = `checkbox-list-secondary-label-${device.deviceId}`
-            listItems.push(
+            deviceItems.push(
                 <ListItem button key={device.deviceId} id={"nav_device_" + device.deviceId}>
                     {/* TODO add device type to database and change icon based on that */}
                     <ListItemIcon><MotorcycleIcon/></ListItemIcon>
@@ -219,8 +228,20 @@ class PersistentSideDrawer extends React.Component {
                     </IconButton>
                     </div>
                     <Divider />
-                    <List>{listItems}</List>
+                    {/* First add the devices */}
+                    <List>{deviceItems}</List>
                     <Divider />
+                    {/* Add entry to view list of locations from selected devices */}
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon> <ExploreIcon /></ListItemIcon>
+                            <ListItemText primary="Map" />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon> <HistoryIcon /> </ListItemIcon>
+                            <ListItemText primary="History" />
+                        </ListItem>
+                    </List>
                     {/* TODO add settings or something here  */}
                     {/* <List>
                     {['All mail', 'Trash', 'Spam'].map((text, index) => (
