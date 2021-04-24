@@ -6,13 +6,13 @@
   "dependencies": {
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
+    "google-map-react": "^2.1.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "4.0.3",
+    "react-tooltip": "^4.2.17",
+    "styled-components": "^5.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,7 +38,11 @@
   "proxy": "http://localhost:8080/",
   "secure": false,
   "devDependencies": {
+    "eslint-plugin-react": "^7.23.2",
     "gulp-sass": "^4.1.0",
-    "gulp-wait": "0.0.2"
+    "gulp-wait": "0.0.2",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1"
   }
 }
